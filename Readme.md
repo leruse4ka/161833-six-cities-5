@@ -3,6 +3,7 @@
 * Студент: [Валерия Быковская](https://up.htmlacademy.ru/react/5/user/161833).
 * Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
 
+
 ---
 
 _Не удаляйте и не изменяйте папки и файлы:_
