@@ -1,7 +1,9 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Валерия Быковская](https://up.htmlacademy.ru/react/5/user/161833).
-* Наставник: `Неизвестно`.
+* Наставник: [Виктор Кан](https://htmlacademy.ru/profile/viktorkan).
+
+
 
 ---
 
