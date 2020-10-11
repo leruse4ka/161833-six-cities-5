@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Main = (props) => {
+const MainPage = (props) => {
   const {countRent} = props;
 
   return (
@@ -265,8 +265,8 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
+MainPage.propTypes = {
   countRent: PropTypes.number.isRequired,
 };
 
-export default Main;
+export default MainPage;

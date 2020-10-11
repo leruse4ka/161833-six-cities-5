@@ -1,6 +1,6 @@
 import React from "react";
 
-const PropertyScreen = () => {
+const PropertyPage = () => {
   return (
     <div className="page">
       <header className="header">
@@ -326,4 +326,4 @@ const PropertyScreen = () => {
   );
 };
 
-export default PropertyScreen;
+export default PropertyPage;

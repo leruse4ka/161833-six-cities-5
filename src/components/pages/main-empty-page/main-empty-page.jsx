@@ -1,6 +1,6 @@
 import React from "react";
 
-const MainEmpty = () => {
+const MainEmptyPage = () => {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -80,4 +80,4 @@ const MainEmpty = () => {
   );
 };
 
-export default MainEmpty;
+export default MainEmptyPage;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const AuthScreen = () => {
+const AuthScreenPage = () => {
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -55,4 +55,4 @@ const AuthScreen = () => {
   );
 };
 
-export default AuthScreen;
+export default AuthScreenPage;

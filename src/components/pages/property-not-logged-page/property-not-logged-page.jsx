@@ -1,6 +1,6 @@
 import React from "react";
 
-const PropertyNotLoggedScreen = () => {
+const PropertyNotLoggedPage = () => {
   return (
     <div className="page">
       <header className="header">
@@ -283,4 +283,4 @@ const PropertyNotLoggedScreen = () => {
   );
 };
 
-export default PropertyNotLoggedScreen;
+export default PropertyNotLoggedPage;

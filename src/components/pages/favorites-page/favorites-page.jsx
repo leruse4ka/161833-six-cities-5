@@ -1,6 +1,6 @@
 import React from "react";
 
-const FavoritesScreen = () => {
+const FavoritesPage = () => {
   return (
     <div className="page">
       <header className="header">
@@ -161,4 +161,4 @@ const FavoritesScreen = () => {
   );
 };
 
-export default FavoritesScreen;
+export default FavoritesPage;
