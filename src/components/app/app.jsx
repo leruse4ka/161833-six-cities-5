@@ -1,12 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Main from "../main/main";
+import MainPage from "../pages/main-page/main-page";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import AuthScreenPage from "../pages/auth-screen-page/auth-screen-page";
+import FavoritesPage from "../pages/favorites-page/favorites-page";
+import PropertyPage from "../pages/property-page/property-page";
 
 const App = (props) => {
   const {countRent} = props;
 
   return (
-    <Main countRent={countRent}/>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" render={() => <MainPage countRent={countRent} />} />
+        <Route path="/login" exact component={AuthScreenPage} />
+        <Route path="/favorites" exact component={FavoritesPage} />
+        <Route path="/offer/:id" exact component={PropertyPage} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 
