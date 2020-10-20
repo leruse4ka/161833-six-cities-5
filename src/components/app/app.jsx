@@ -8,13 +8,14 @@ import {propChecks} from "../../prop-checks/prop-checks";
 
 const App = (props) => {
   const {countRent, offers} = props;
+  const favoriteOffers = offers.filter((item) => item.isFavorite);
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() => <MainPage countRent={countRent} offers={offers}/>} />
         <Route path="/login" exact component={AuthScreenPage} />
-        <Route path="/favorites" exact render={() => <FavoritesPage offers={offers} />} />
+        <Route path="/favorites" exact render={() => <FavoritesPage offers={favoriteOffers} />} />
         <Route path="/offer/:id" exact render={() => <PropertyPage offers={offers} />} />
       </Switch>
     </BrowserRouter>

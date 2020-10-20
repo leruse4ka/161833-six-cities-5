@@ -1,46 +1,35 @@
-import React, {PureComponent} from "react";
+import React from "react";
+import {Cities} from "../../const";
 import PropTypes from "prop-types";
-import Card from "../card/card";
+import FavoriteListItem from "../favorite-list-item/favorite-list-item";
 
-class CardList extends PureComponent {
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      activeOffer: null,
-    };
+const FavoriteList = (props) => {
+  const {offers} = props;
+  const listElements = Array.from(new Set(offers.map((item) => item.city)));
+  return (
+    listElements.map((item) => {
+      return (
+        <li key={item} className="favorites__locations-items">
+          <div className="favorites__locations locations locations--current">
+            <div className="locations__item">
+              <a className="locations__item-link" href="#">
+                <span>{Cities[item]}</span>
+              </a>
+            </div>
+          </div>
+          <div className="favorites__places">
+            {offers
+              .filter((offer) => offer.city === item)
+              .map((el) => <FavoriteListItem offer={el} key={el.id}/>)}
+          </div>
+        </li>
+      );
+    })
+  );
+};
 
-    this.handleOfferFocus = this.handleOfferFocus.bind(this);
-  }
-
-  handleOfferFocus(offer) {
-
-    this.setState(() => ({
-      activeOffer: offer.id
-    }));
-  }
-
-  render() {
-    const {offers} = this.props;
-    return (
-      <div className="cities__places-list places__list tabs__content">
-        {offers.map((offer) => {
-          return (
-            <React.Fragment key={offer.id}>
-              <Card
-                offer={offer}
-                nameClassCard={`cities__place-card`}
-                nameClassImg={`cities`}
-                activeOfferHandler={this.handleOfferFocus} />
-            </React.Fragment>
-          );
-        })}
-      </div>
-    );
-  }
-}
-
-CardList.propTypes = {
+FavoriteList.propTypes = {
   offers: PropTypes.arrayOf(PropTypes.shape({
     city: PropTypes.string.isRequired,
     features: PropTypes.shape({
@@ -75,4 +64,4 @@ CardList.propTypes = {
   )
 };
 
-export default CardList;
+export default FavoriteList;

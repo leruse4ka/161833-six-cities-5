@@ -9,6 +9,23 @@ class ReviewForm extends PureComponent {
       rating: 0,
       description: ``,
     };
+
+    this.handleRatingInput = this.handleRatingInput.bind(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
+  }
+
+  handleTextInput(evt) {
+    let text = evt.target.value;
+    this.setState(() => ({
+      description: text,
+    }));
+  }
+
+  handleRatingInput(evt) {
+    let value = evt.target.value;
+    this.setState(() => ({
+      rating: value
+    }));
   }
 
   render() {
@@ -16,12 +33,7 @@ class ReviewForm extends PureComponent {
       return (
         <React.Fragment key={star}>
           <input className="form__rating-input visually-hidden" name="rating" value={star[0]} id={star[1]} type="radio"
-            onClick={(evt) => {
-              let value = evt.target.value;
-              this.setState(() => ({
-                rating: value
-              }));
-            }} />
+            onClick={this.handleRatingInput} />
           <label htmlFor={star[1]} className="reviews__rating-label form__rating-label" title="perfect">
             <svg className="form__star-image" width="37" height="33">
               <use href="#icon-star"></use>
@@ -38,12 +50,7 @@ class ReviewForm extends PureComponent {
           {ratingButton}
         </div>
         <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"
-          onInput={(evt) => {
-            let text = evt.target.value;
-            this.setState(() => ({
-              description: text,
-            }));
-          }}></textarea>
+          onInput={this.handleTextInput}></textarea>
         <div className="reviews__button-wrapper">
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

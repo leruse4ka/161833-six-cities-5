@@ -7,10 +7,6 @@ class Card extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeOffer: {}
-    };
-
   }
 
   render() {
