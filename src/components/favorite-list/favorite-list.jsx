@@ -1,12 +1,12 @@
 import React from "react";
 import {Cities} from "../../const";
-import PropTypes from "prop-types";
-import FavoriteListItem from "../favorite-list-item/favorite-list-item";
+import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
+import FavoriteCardList from "../favorite-card-list/favorite-card-list";
 
 
 const FavoriteList = (props) => {
   const {offers} = props;
-  const listElements = Array.from(new Set(offers.map((item) => item.city)));
+  const listElements = Array.from(new Set(offers.map((item) => item.city.name)));
   return (
     listElements.map((item) => {
       return (
@@ -19,9 +19,7 @@ const FavoriteList = (props) => {
             </div>
           </div>
           <div className="favorites__places">
-            {offers
-              .filter((offer) => offer.city === item)
-              .map((el) => <FavoriteListItem offer={el} key={el.id}/>)}
+            <FavoriteCardList offers={offers} cityName={item} />
           </div>
         </li>
       );
@@ -30,38 +28,7 @@ const FavoriteList = (props) => {
 };
 
 FavoriteList.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.string.isRequired,
-    features: PropTypes.shape({
-      adults: PropTypes.number.isRequired,
-      bedrooms: PropTypes.number.isRequired,
-      entire: PropTypes.string.isRequired,
-    }).isRequired,
-    id: PropTypes.number.isRequired,
-    inside: PropTypes.array.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    meetHost: PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      description: PropTypes.array.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    photoGallery: PropTypes.arrayOf(PropTypes.shape({
-      alt: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
-    })).isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      date: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-    })).isRequired,
-    title: PropTypes.string.isRequired,
-  })
-  )
+  offers: mainPageOffersProp,
 };
 
 export default FavoriteList;

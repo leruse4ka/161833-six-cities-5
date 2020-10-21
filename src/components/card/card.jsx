@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
+import cardOfferProp from "./card-offer.prop";
 import {StarStyle, Types} from "../../const.js";
 
 class Card extends PureComponent {
@@ -10,7 +11,7 @@ class Card extends PureComponent {
   }
 
   render() {
-    const {offer, activeOfferHandler, nameClassCard, nameClassImg} = this.props;
+    const {offer, activeOfferHandler, nameClassCard, nameClassImg, nameClassInfo, width = `260`, height = `200`} = this.props;
 
     const {isFavorite, photoGallery, price, rating, title, features, id, premium} = offer;
 
@@ -38,10 +39,10 @@ class Card extends PureComponent {
         {mark}
         <div className={nameImg}>
           <Link to="/offer/:id">
-            <img className="place-card__image" src={photoGallery[0].src} width="260" height="200" alt="Place image" />
+            <img className="place-card__image" src={photoGallery[0].src} width={width} height={height} alt="Place image" />
           </Link>
         </div>
-        <div className="place-card__info">
+        <div className={nameClassInfo ? nameClassInfo + `place-card__info` : `place-card__info`}>
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{price}</b>
@@ -73,38 +74,11 @@ class Card extends PureComponent {
 Card.propTypes = {
   nameClassCard: PropTypes.string.isRequired,
   nameClassImg: PropTypes.string.isRequired,
+  nameClassInfo: PropTypes.string.isRequired,
   activeOfferHandler: PropTypes.func.isRequired,
-  offer: PropTypes.shape({
-    city: PropTypes.string.isRequired,
-    features: PropTypes.shape({
-      adults: PropTypes.number.isRequired,
-      bedrooms: PropTypes.number.isRequired,
-      entire: PropTypes.string.isRequired,
-    }).isRequired,
-    id: PropTypes.number.isRequired,
-    inside: PropTypes.array.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    meetHost: PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      description: PropTypes.array.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    photoGallery: PropTypes.arrayOf(PropTypes.shape({
-      alt: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
-    })).isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      date: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-    })).isRequired,
-    title: PropTypes.string.isRequired,
-  })
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
+  offer: cardOfferProp,
 };
 
 export default Card;
