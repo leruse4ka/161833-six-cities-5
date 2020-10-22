@@ -32,4 +32,21 @@ const Stars = {
   1: `1-star`,
 };
 
-export {StarStyle, Types, Cities, Stars};
+const TypesCard = {
+  favorites: {
+    nameClassCard: `favorites__card`,
+    nameClassImg: `favorites`,
+    nameClassInfo: `favorites__card-info `,
+    width: 150,
+    height: 110,
+  },
+  property: {
+    nameClassCard: `near-places__card`,
+    nameClassImg: `near-places`,
+    nameClassInfo: ``,
+    width: 260,
+    height: 200,
+  },
+};
+
+export {StarStyle, Types, Cities, Stars, TypesCard};

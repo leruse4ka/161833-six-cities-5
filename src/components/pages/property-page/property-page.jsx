@@ -1,9 +1,11 @@
 import React from "react";
 import mainPageOffersProp from "../main-page/main-page-offers.prop";
-import {StarStyle, Types} from "../../../const.js";
+import {StarStyle, Types, TypesCard} from "../../../const.js";
 import ReviewForm from "../../review-form/review-form.jsx";
 import {Link} from "react-router-dom";
-import Card from "../../card/card";
+import ReviewList from "../../review-list/review-list";
+import Map from "../../map/map";
+import CardList from "../../card-list/card-list";
 
 const MAX_COUNT = 3;
 
@@ -46,20 +48,7 @@ const PropertyPage = (props) => {
     );
   });
 
-  const cards = offers.map((item) => {
-    return (
-      <React.Fragment key={item.id}>
-        <Card
-          offer={item}
-          nameClassCard={`near-places__card`}
-          nameClassImg={`near-places`}
-          nameClassInfo={``}
-          width={`260`}
-          height={`200`}
-          activeOfferHandler={() => {}} />
-      </React.Fragment>
-    );
-  });
+  const cards = offers.slice(0, MAX_COUNT);
 
   return (
     <div className="page">
@@ -161,49 +150,25 @@ const PropertyPage = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ul className="reviews__list">
-                  {reviews.map((item) => {
-                    let reviewRating = StarStyle[item.rating];
-                    let dateReview = new Date(item.date);
-                    return (
-                      <li key={item.name} className="reviews__item">
-                        <div className="reviews__user user">
-                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                            <img className="reviews__avatar user__avatar" src={item.avatar} width="54" height="54" alt="Reviews avatar"/>
-                          </div>
-                          <span className="reviews__user-name">
-                            {item.name}
-                          </span>
-                        </div>
-                        <div className="reviews__info">
-                          <div className="reviews__rating rating">
-                            <div className="reviews__stars rating__stars">
-                              <span style={{width: reviewRating}}></span>
-                              <span className="visually-hidden">Rating</span>
-                            </div>
-                          </div>
-                          <p className="reviews__text">
-                            {item.description}
-                          </p>
-                          <time className="reviews__time" dateTime={dateReview}>{dateReview.toLocaleString(`en-GB`, {month: `long`})} {dateReview.getFullYear()}</time>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+                <ReviewList reviews={reviews} />
                 <ReviewForm />
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map offers={offers} cityCord={[52.38333, 4.9]} limitCount={true}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {cards.slice(0, MAX_COUNT)}
 
-            </div>
+            <CardList
+              offers={cards}
+              classNames={`near-places__list`}
+              typeCard={TypesCard.property}
+            />
+
           </section>
         </div>
       </main>

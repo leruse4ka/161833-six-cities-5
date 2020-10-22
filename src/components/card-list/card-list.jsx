@@ -1,6 +1,7 @@
 import React, {PureComponent} from "react";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import Card from "../card/card";
+import PropTypes from "prop-types";
 
 class CardList extends PureComponent {
   constructor(props) {
@@ -21,20 +22,16 @@ class CardList extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, classNames, typeCard} = this.props;
     return (
-      <div className="cities__places-list places__list tabs__content">
+      <div className={classNames + ` places__list`}>
         {offers.map((offer) => {
           return (
             <React.Fragment key={offer.id}>
               <Card
                 offer={offer}
-                nameClassCard={`cities__place-card`}
-                nameClassImg={`cities`}
-                nameClassInfo={``}
-                width={`260`}
-                height={`200`}
-                activeOfferHandler={this.handleOfferFocus} />
+                activeOfferHandler={this.handleOfferFocus}
+                typeCard={typeCard} />
             </React.Fragment>
           );
         })}
@@ -43,8 +40,27 @@ class CardList extends PureComponent {
   }
 }
 
+CardList.defaultProps = {
+  classNames: `cities__places-list tabs__content`,
+  typeCard: {
+    nameClassCard: `cities__place-card`,
+    nameClassImg: `cities`,
+    nameClassInfo: ``,
+    width: 260,
+    height: 200,
+  },
+};
+
 CardList.propTypes = {
   offers: mainPageOffersProp,
+  classNames: PropTypes.string.isRequired,
+  typeCard: PropTypes.shape({
+    nameClassCard: PropTypes.string.isRequired,
+    nameClassImg: PropTypes.string.isRequired,
+    nameClassInfo: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  })
 };
 
 export default CardList;

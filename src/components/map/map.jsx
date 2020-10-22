@@ -3,17 +3,15 @@ import PropTypes from "prop-types";
 import leaflet from "leaflet";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 
+const MAX_COUNT = 3;
+
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isLoading: true,
-    };
   }
 
   componentDidMount() {
-    const {offers, cityCord} = this.props;
+    const {offers, cityCord, limitCount} = this.props;
 
     const city = cityCord;
 
@@ -39,7 +37,9 @@ class Map extends PureComponent {
       })
       .addTo(map);
 
-    offers.map((offer) => {
+    const pins = limitCount ? offers.slice(0, MAX_COUNT) : offers;
+
+    pins.map((offer) => {
       const offerCords = offer.coordinates;
       return (
         leaflet
@@ -55,9 +55,14 @@ class Map extends PureComponent {
 
 }
 
+Map.defaultProps = {
+  limitCount: false,
+};
+
 Map.propTypes = {
   cityCord: PropTypes.array.isRequired,
   offers: mainPageOffersProp,
+  limitCount: PropTypes.bool.isRequired,
 };
 
 export default Map;
