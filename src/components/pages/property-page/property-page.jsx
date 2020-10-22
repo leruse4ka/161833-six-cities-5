@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import mainPageOffersProp from "../main-page/main-page-offers.prop";
 import {StarStyle, Types} from "../../../const.js";
 import ReviewForm from "../../review-form/review-form.jsx";
 import {Link} from "react-router-dom";
@@ -53,6 +53,9 @@ const PropertyPage = (props) => {
           offer={item}
           nameClassCard={`near-places__card`}
           nameClassImg={`near-places`}
+          nameClassInfo={``}
+          width={`260`}
+          height={`200`}
           activeOfferHandler={() => {}} />
       </React.Fragment>
     );
@@ -209,38 +212,7 @@ const PropertyPage = (props) => {
 };
 
 PropertyPage.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.string.isRequired,
-    features: PropTypes.shape({
-      adults: PropTypes.number.isRequired,
-      bedrooms: PropTypes.number.isRequired,
-      entire: PropTypes.string.isRequired,
-    }).isRequired,
-    id: PropTypes.number.isRequired,
-    inside: PropTypes.array.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    meetHost: PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      description: PropTypes.array.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-    photoGallery: PropTypes.arrayOf(PropTypes.shape({
-      alt: PropTypes.string.isRequired,
-      src: PropTypes.string.isRequired,
-    })).isRequired,
-    premium: PropTypes.bool.isRequired,
-    price: PropTypes.number.isRequired,
-    rating: PropTypes.number.isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.shape({
-      avatar: PropTypes.string.isRequired,
-      date: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
-    })).isRequired,
-    title: PropTypes.string.isRequired,
-  })
-  )
+  offers: mainPageOffersProp,
 };
 
 export default PropertyPage;

@@ -1,6 +1,8 @@
 import React from "react";
-import {propChecks} from "../../../prop-checks/prop-checks";
+import PropTypes from "prop-types";
 import CardList from "../../card-list/card-list";
+import Map from "../../map/map";
+import mainPageOffersProp from "./main-page-offers.prop";
 
 const MainPage = (props) => {
   const {countRent, offers} = props;
@@ -91,7 +93,9 @@ const MainPage = (props) => {
               <CardList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map offers={offers} cityCord={[52.38333, 4.9]} />
+              </section>
             </div>
           </div>
         </div>
@@ -100,6 +104,9 @@ const MainPage = (props) => {
   );
 };
 
-MainPage.propTypes = propChecks;
+MainPage.propTypes = {
+  countRent: PropTypes.number.isRequired,
+  offers: mainPageOffersProp,
+};
 
 export default MainPage;

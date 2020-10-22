@@ -3,7 +3,10 @@ import PropTypes from "prop-types";
 const propChecks = {
   countRent: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(PropTypes.shape({
-    city: PropTypes.string.isRequired,
+    city: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      coordinatesCity: PropTypes.array.isRequired,
+    }).isRequired,
     features: PropTypes.shape({
       adults: PropTypes.number.isRequired,
       bedrooms: PropTypes.number.isRequired,
@@ -32,6 +35,7 @@ const propChecks = {
       rating: PropTypes.number.isRequired,
     })).isRequired,
     title: PropTypes.string.isRequired,
+    coordinates: PropTypes.array.isRequired,
   })
   )
 };
