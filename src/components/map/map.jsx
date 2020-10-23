@@ -54,7 +54,6 @@ class Map extends PureComponent {
 Map.propTypes = {
   cityCord: PropTypes.array.isRequired,
   offers: mainPageOffersProp,
-  limitCount: PropTypes.bool.isRequired,
 };
 
 export default Map;

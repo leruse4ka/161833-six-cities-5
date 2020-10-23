@@ -22,7 +22,7 @@ class CardsList extends PureComponent {
   }
 
   render() {
-    const {offers, classNames, typeCard} = this.props;
+    const {offers, classNames, defaultType} = this.props;
     return (
       <div className={classNames + ` places__list`}>
         {offers.map((offer) => {
@@ -31,7 +31,7 @@ class CardsList extends PureComponent {
               <Card
                 offer={offer}
                 activeOfferHandler={this.handleOfferFocus}
-                typeCard={typeCard} />
+                defaultType={defaultType} />
             </React.Fragment>
           );
         })}
@@ -42,7 +42,7 @@ class CardsList extends PureComponent {
 
 CardsList.defaultProps = {
   classNames: `cities__places-list tabs__content`,
-  typeCard: {
+  defaultType: {
     nameClassCard: `cities__place-card`,
     nameClassImg: `cities`,
     nameClassInfo: ``,
@@ -54,7 +54,7 @@ CardsList.defaultProps = {
 CardsList.propTypes = {
   offers: mainPageOffersProp,
   classNames: PropTypes.string.isRequired,
-  typeCard: PropTypes.shape({
+  defaultType: PropTypes.shape({
     nameClassCard: PropTypes.string.isRequired,
     nameClassImg: PropTypes.string.isRequired,
     nameClassInfo: PropTypes.string.isRequired,

@@ -166,7 +166,7 @@ const PropertyPage = (props) => {
             <CardsList
               offers={cards}
               classNames={`near-places__list`}
-              typeCard={DefaultType.property}
+              defaultType={DefaultType.property}
             />
 
           </section>

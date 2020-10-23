@@ -1,7 +1,7 @@
 import React from "react";
 import {Cities} from "../../const";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
-import FavoriteCardsList from "../favorite-card-list/favorite-card-list";
+import FavoriteCardsList from "../favorite-cards-list/favorite-cards-list";
 
 
 const FavoriteList = (props) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CardsList from "../../card-list/card-list";
+import CardsList from "../../cards-list/cards-list";
 import Map from "../../map/map";
 import mainPageOffersProp from "./main-page-offers.prop";
 
