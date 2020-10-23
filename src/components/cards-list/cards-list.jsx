@@ -3,7 +3,7 @@ import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import Card from "../card/card";
 import PropTypes from "prop-types";
 
-class CardList extends PureComponent {
+class CardsList extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -40,7 +40,7 @@ class CardList extends PureComponent {
   }
 }
 
-CardList.defaultProps = {
+CardsList.defaultProps = {
   classNames: `cities__places-list tabs__content`,
   typeCard: {
     nameClassCard: `cities__place-card`,
@@ -51,7 +51,7 @@ CardList.defaultProps = {
   },
 };
 
-CardList.propTypes = {
+CardsList.propTypes = {
   offers: mainPageOffersProp,
   classNames: PropTypes.string.isRequired,
   typeCard: PropTypes.shape({
@@ -63,4 +63,4 @@ CardList.propTypes = {
   })
 };
 
-export default CardList;
+export default CardsList;

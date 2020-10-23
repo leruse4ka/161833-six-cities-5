@@ -1,11 +1,11 @@
 import React from "react";
 import mainPageOffersProp from "../main-page/main-page-offers.prop";
-import {StarStyle, Types, TypesCard} from "../../../const.js";
+import {StarStyle, Types, DefaultType} from "../../../const.js";
 import ReviewForm from "../../review-form/review-form.jsx";
 import {Link} from "react-router-dom";
 import ReviewList from "../../review-list/review-list";
 import Map from "../../map/map";
-import CardList from "../../card-list/card-list";
+import CardsList from "../../cards-list/cards-list";
 
 const MAX_COUNT = 3;
 
@@ -156,17 +156,17 @@ const PropertyPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offers} cityCord={[52.38333, 4.9]} limitCount={true}/>
+            <Map offers={cards} cityCord={[52.38333, 4.9]}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <CardList
+            <CardsList
               offers={cards}
               classNames={`near-places__list`}
-              typeCard={TypesCard.property}
+              typeCard={DefaultType.property}
             />
 
           </section>

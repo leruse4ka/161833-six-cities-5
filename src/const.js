@@ -32,7 +32,7 @@ const Stars = {
   1: `1-star`,
 };
 
-const TypesCard = {
+const DefaultType = {
   favorites: {
     nameClassCard: `favorites__card`,
     nameClassImg: `favorites`,
@@ -49,4 +49,4 @@ const TypesCard = {
   },
 };
 
-export {StarStyle, Types, Cities, Stars, TypesCard};
+export {StarStyle, Types, Cities, Stars, DefaultType};
