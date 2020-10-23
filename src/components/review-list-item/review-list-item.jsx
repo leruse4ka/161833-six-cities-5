@@ -28,14 +28,14 @@ const ReviewListItem = (props) => {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: reviewRating }}></span>
+            <span style={{width: reviewRating}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <p className="reviews__text">
           {description}
         </p>
-        <time className="reviews__time" dateTime={dateReview}>{dateReview.toLocaleString(`en-GB`, { month: `long` })} {dateReview.getFullYear()}</time>
+        <time className="reviews__time" dateTime={dateReview}>{dateReview.toLocaleString(`en-GB`, {month: `long`})} {dateReview.getFullYear()}</time>
       </div>
     </li>
   );
