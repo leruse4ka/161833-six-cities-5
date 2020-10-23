@@ -6,10 +6,6 @@ import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 class Map extends PureComponent {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isLoading: true,
-    };
   }
 
   componentDidMount() {
@@ -58,6 +54,7 @@ class Map extends PureComponent {
 Map.propTypes = {
   cityCord: PropTypes.array.isRequired,
   offers: mainPageOffersProp,
+  limitCount: PropTypes.bool.isRequired,
 };
 
 export default Map;

@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import Card from "../card/card";
+import {DefaultType} from "../../const";
 
-const FavoriteCardList = (props) => {
+const FavoriteCardsList = (props) => {
   const {offers, cityName} = props;
   return (
     offers
@@ -11,19 +12,14 @@ const FavoriteCardList = (props) => {
       .map((el) => <Card
         offer={el}
         key={el.id}
-        nameClassCard={`favorites__card`}
-        nameClassImg={`favorites`}
-        nameClassInfo={`favorites__card-info `}
-        activeOfferHandler={() => { }}
-        width={`150`}
-        height={`110`}
+        typeCard={DefaultType.favorites}
       />)
   );
 };
 
-FavoriteCardList.propTypes = {
+FavoriteCardsList.propTypes = {
   offers: mainPageOffersProp,
   cityName: PropTypes.string.isRequired,
 };
 
-export default FavoriteCardList;
+export default FavoriteCardsList;

@@ -1,7 +1,7 @@
 import React from "react";
 import {Cities} from "../../const";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
-import FavoriteCardList from "../favorite-card-list/favorite-card-list";
+import FavoriteCardsList from "../favorite-card-list/favorite-card-list";
 
 
 const FavoriteList = (props) => {
@@ -19,7 +19,7 @@ const FavoriteList = (props) => {
             </div>
           </div>
           <div className="favorites__places">
-            <FavoriteCardList offers={offers} cityName={item} />
+            <FavoriteCardsList offers={offers} cityName={item} />
           </div>
         </li>
       );

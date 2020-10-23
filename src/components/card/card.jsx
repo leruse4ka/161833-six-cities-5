@@ -11,7 +11,9 @@ class Card extends PureComponent {
   }
 
   render() {
-    const {offer, activeOfferHandler, nameClassCard, nameClassImg, nameClassInfo, width = `260`, height = `200`} = this.props;
+    const {offer, activeOfferHandler, defaultType} = this.props;
+
+    const {nameClassCard, nameClassImg, nameClassInfo, width, height} = defaultType;
 
     const {isFavorite, photoGallery, price, rating, title, features, id, premium} = offer;
 
@@ -71,13 +73,19 @@ class Card extends PureComponent {
   }
 }
 
+Card.defaultProps = {
+  activeOfferHandler: () => {}
+};
+
 Card.propTypes = {
-  nameClassCard: PropTypes.string.isRequired,
-  nameClassImg: PropTypes.string.isRequired,
-  nameClassInfo: PropTypes.string.isRequired,
+  defaultType: PropTypes.shape({
+    nameClassCard: PropTypes.string.isRequired,
+    nameClassImg: PropTypes.string.isRequired,
+    nameClassInfo: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+  }),
   activeOfferHandler: PropTypes.func.isRequired,
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
   offer: cardOfferProp,
 };
 
