@@ -1,12 +1,10 @@
 import React from "react";
-import {Cities} from "../../const";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
-import FavoriteCardsList from "../favorite-card-list/favorite-card-list";
-
+import FavoriteCardsList from "../favorite-cards-list/favorite-cards-list";
 
 const FavoriteList = (props) => {
-  const {offers} = props;
-  const listElements = Array.from(new Set(offers.map((item) => item.city.name)));
+  const {favoriteOffers} = props;
+  const listElements = Array.from(new Set(favoriteOffers.map((item) => item.city.name)));
   return (
     listElements.map((item) => {
       return (
@@ -14,12 +12,12 @@ const FavoriteList = (props) => {
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                <span>{Cities[item]}</span>
+                <span>{item}</span>
               </a>
             </div>
           </div>
           <div className="favorites__places">
-            <FavoriteCardsList offers={offers} cityName={item} />
+            <FavoriteCardsList offers={favoriteOffers} cityName={item} />
           </div>
         </li>
       );
@@ -28,7 +26,7 @@ const FavoriteList = (props) => {
 };
 
 FavoriteList.propTypes = {
-  offers: mainPageOffersProp,
+  favoriteOffers: mainPageOffersProp,
 };
 
 export default FavoriteList;

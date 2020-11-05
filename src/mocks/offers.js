@@ -14,7 +14,7 @@ const generateOffer = () => {
   return {
     title: TITLE[random(0, 3)],
     city: {
-      name: `amsterdam`,
+      name: `Amsterdam`,
       coordinatesCity: [52.38333, 4.9],
     },
     premium: Boolean(Math.round(Math.random())),
@@ -38,4 +38,4 @@ const generateOffers = (amount) => {
 };
 
 const offers = generateOffers(COUNT);
-export {offers};
+export default offers;

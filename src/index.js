@@ -1,16 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app";
-import {offers} from "./mocks/offers";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import {reducer} from "./store/reducer";
 
-const Settings = {
-  COUNT_RENT: 312
-};
+const store = createStore(
+    reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+);
+
+// const Settings = {
+//   COUNT_RENT: 312
+// };
 
 ReactDOM.render(
-    <App
-      countRent={Settings.COUNT_RENT}
-      offers={offers}
-    />,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.querySelector(`#root`)
 );

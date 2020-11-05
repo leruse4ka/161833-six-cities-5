@@ -1,3 +1,5 @@
+const CITIES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+
 const StarStyle = {
   0: 0 + `%`,
   1: 20 + `%`,
@@ -13,15 +15,6 @@ const Types = {
   room: `Private room`,
   house: `House`,
   hotel: `Hotel`
-};
-
-const Cities = {
-  amsterdam: `Amsterdam`,
-  paris: `Paris`,
-  cologne: `Cologne`,
-  brussels: `Brussels`,
-  hamburg: `Hamburg`,
-  dusseldorf: `Dusseldorf`,
 };
 
 const Stars = {
@@ -49,4 +42,4 @@ const DefaultType = {
   },
 };
 
-export {StarStyle, Types, Cities, Stars, DefaultType};
+export {StarStyle, Types, CITIES, Stars, DefaultType};
