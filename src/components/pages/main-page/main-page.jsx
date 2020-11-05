@@ -6,6 +6,7 @@ import mainPageOffersProp from "./main-page-offers.prop";
 import {connect} from "react-redux";
 import CitiesList from "../../cities-list/cities-list";
 import {ActionCreator} from "../../../store/action";
+import {Link} from "react-router-dom";
 
 const MainPage = (props) => {
   const {offers, cityName, onCityClick} = props;
@@ -25,11 +26,11 @@ const MainPage = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
