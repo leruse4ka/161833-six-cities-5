@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 import ReviewList from "../../review-list/review-list";
 import Map from "../../map/map";
 import CardsList from "../../cards-list/cards-list";
+import {connect} from "react-redux";
 
 const MAX_COUNT = 3;
 
@@ -180,4 +181,12 @@ PropertyPage.propTypes = {
   offers: mainPageOffersProp,
 };
 
-export default PropertyPage;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+});
+
+// const mapDispatchToProps = (dispatch) => ({
+
+// });
+
+export default connect(mapStateToProps)(PropertyPage);

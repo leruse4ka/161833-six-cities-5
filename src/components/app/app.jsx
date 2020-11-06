@@ -1,30 +1,22 @@
 import React from "react";
-import PropTypes from "prop-types";
 import MainPage from "../pages/main-page/main-page";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import AuthScreenPage from "../pages/auth-screen-page/auth-screen-page";
 import FavoritesPage from "../pages/favorites-page/favorites-page";
 import PropertyPage from "../pages/property-page/property-page";
-import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 
-const App = (props) => {
-  const {countRent, offers} = props;
-  const favoriteOffers = offers.filter((item) => item.isFavorite);
-
+const App = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" render={() => <MainPage countRent={countRent} offers={offers}/>} />
+        <Route exact path="/" component={MainPage} />
         <Route path="/login" exact component={AuthScreenPage} />
-        <Route path="/favorites" exact render={() => <FavoritesPage offers={favoriteOffers} />} />
-        <Route path="/offer/:id" exact render={() => <PropertyPage offers={offers} />} />
+        <Route path="/favorites" exact component={FavoritesPage} />
+        <Route path="/offer/:id" exact component={PropertyPage} />
       </Switch>
     </BrowserRouter>
   );
 };
-App.propTypes = {
-  countRent: PropTypes.number.isRequired,
-  offers: mainPageOffersProp,
-};
+App.propTypes = {};
 
 export default App;

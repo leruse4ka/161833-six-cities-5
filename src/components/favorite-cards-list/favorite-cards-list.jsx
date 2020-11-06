@@ -12,7 +12,7 @@ const FavoriteCardsList = (props) => {
       .map((el) => <Card
         offer={el}
         key={el.id}
-        typeCard={DefaultType.favorites}
+        defaultType={DefaultType.favorites}
       />)
   );
 };

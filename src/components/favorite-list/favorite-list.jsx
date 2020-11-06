@@ -1,8 +1,7 @@
 import React from "react";
-import {Cities} from "../../const";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
-import FavoriteCardsList from "../favorite-card-list/favorite-card-list";
-
+import FavoriteCardsList from "../favorite-cards-list/favorite-cards-list";
+import {connect} from "react-redux";
 
 const FavoriteList = (props) => {
   const {offers} = props;
@@ -14,7 +13,7 @@ const FavoriteList = (props) => {
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                <span>{Cities[item]}</span>
+                <span>{item}</span>
               </a>
             </div>
           </div>
@@ -28,7 +27,11 @@ const FavoriteList = (props) => {
 };
 
 FavoriteList.propTypes = {
-  offers: mainPageOffersProp,
+  favoriteOffers: mainPageOffersProp,
 };
 
-export default FavoriteList;
+const mapStateToProps = (state) => ({
+  offers: Array.from(state.offers.filter((item) => item.isFavorite)),
+});
+
+export default connect(mapStateToProps)(FavoriteList);
