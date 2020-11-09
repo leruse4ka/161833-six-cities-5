@@ -1,44 +1,25 @@
-import React, {PureComponent} from "react";
+import React from "react";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import Card from "../card/card";
 import PropTypes from "prop-types";
 
-class CardsList extends PureComponent {
-  constructor(props) {
-    super(props);
+const CardsList = (props) => {
+  const {offers, classNames, defaultType, onOfferFocus, onOfferLeave} = props;
 
-    this.state = {
-      activeOffer: null,
-    };
-
-    this.handleOfferFocus = this.handleOfferFocus.bind(this);
-  }
-
-  handleOfferFocus(offer) {
-
-    this.setState(() => ({
-      activeOffer: offer.id
-    }));
-  }
-
-  render() {
-    const {offers, classNames, defaultType} = this.props;
-    return (
-      <div className={classNames + ` places__list`}>
-        {offers.map((offer) => {
-          return (
-            <React.Fragment key={offer.id}>
-              <Card
-                offer={offer}
-                activeOfferHandler={this.handleOfferFocus}
-                defaultType={defaultType} />
-            </React.Fragment>
-          );
-        })}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classNames + ` places__list`}>
+      {offers.map((offer) => {
+        return (
+          <Card key={offer.id}
+            offer={offer}
+            onOfferFocus={onOfferFocus}
+            defaultType={defaultType}
+            onOfferLeave={onOfferLeave} />
+        );
+      })}
+    </div>
+  );
+};
 
 CardsList.defaultProps = {
   classNames: `cities__places-list tabs__content`,
@@ -60,7 +41,9 @@ CardsList.propTypes = {
     nameClassInfo: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-  })
+  }),
+  onOfferFocus: PropTypes.func.isRequired,
+  onOfferLeave: PropTypes.func.isRequired,
 };
 
 export default CardsList;
