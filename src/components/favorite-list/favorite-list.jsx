@@ -1,10 +1,9 @@
 import React from "react";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import FavoriteCardsList from "../favorite-cards-list/favorite-cards-list";
-import PropTypes from "prop-types";
 
 const FavoriteList = (props) => {
-  const {offers, onOfferFocus, onOfferLeave} = props;
+  const {offers} = props;
   const listElements = Array.from(new Set(offers.map((item) => item.city.name)));
   return (
     listElements.map((item) => {
@@ -18,7 +17,7 @@ const FavoriteList = (props) => {
             </div>
           </div>
           <div className="favorites__places">
-            <FavoriteCardsList offers={offers} cityName={item} onOfferFocus={onOfferFocus} onOfferLeave={onOfferLeave}/>
+            <FavoriteCardsList offers={offers} cityName={item} />
           </div>
         </li>
       );
@@ -28,8 +27,6 @@ const FavoriteList = (props) => {
 
 FavoriteList.propTypes = {
   favoriteOffers: mainPageOffersProp,
-  onOfferFocus: PropTypes.func.isRequired,
-  onOfferLeave: PropTypes.func.isRequired,
 };
 
 export default FavoriteList;

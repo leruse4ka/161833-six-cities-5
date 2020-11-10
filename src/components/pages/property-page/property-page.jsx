@@ -7,13 +7,12 @@ import ReviewList from "../../review-list/review-list";
 import Map from "../../map/map";
 import CardsList from "../../cards-list/cards-list";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../../store/action";
 import PropTypes from "prop-types";
 
 const MAX_COUNT = 3;
 
 const PropertyPage = (props) => {
-  const {offers, onOfferFocus, activeId, onOfferLeave} = props;
+  const {offers, activeId} = props;
   const offer = offers[0];
   const {
     photoGallery,
@@ -170,8 +169,6 @@ const PropertyPage = (props) => {
               offers={cards}
               classNames={`near-places__list`}
               typeCard={DefaultType.property}
-              onOfferFocus={onOfferFocus}
-              onOfferLeave={onOfferLeave}
             />
 
           </section>
@@ -183,9 +180,7 @@ const PropertyPage = (props) => {
 
 PropertyPage.propTypes = {
   offers: mainPageOffersProp,
-  onOfferFocus: PropTypes.func.isRequired,
   activeId: PropTypes.number,
-  onOfferLeave: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -193,13 +188,4 @@ const mapStateToProps = (state) => ({
   activeId: state.activeId,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onOfferFocus(offer) {
-    dispatch(ActionCreator.focusActiveId(offer));
-  },
-  onOfferLeave() {
-    dispatch(ActionCreator.resetActiveId());
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PropertyPage);
+export default connect(mapStateToProps)(PropertyPage);

@@ -2,6 +2,8 @@ import React from "react";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import Card from "../card/card";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 
 const CardsList = (props) => {
   const {offers, classNames, defaultType, onOfferFocus, onOfferLeave} = props;
@@ -12,8 +14,8 @@ const CardsList = (props) => {
         return (
           <Card key={offer.id}
             offer={offer}
-            onOfferFocus={onOfferFocus}
             defaultType={defaultType}
+            onOfferFocus={onOfferFocus}
             onOfferLeave={onOfferLeave} />
         );
       })}
@@ -46,4 +48,13 @@ CardsList.propTypes = {
   onOfferLeave: PropTypes.func.isRequired,
 };
 
-export default CardsList;
+const mapDispatchToProps = (dispatch) => ({
+  onOfferFocus(offer) {
+    dispatch(ActionCreator.focusActiveId(offer));
+  },
+  onOfferLeave() {
+    dispatch(ActionCreator.resetActiveId());
+  }
+});
+
+export default connect(null, mapDispatchToProps)(CardsList);

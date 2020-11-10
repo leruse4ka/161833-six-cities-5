@@ -3,11 +3,9 @@ import mainPageOffersProp from "../main-page/main-page-offers.prop";
 import FavoriteList from "../../favorite-list/favorite-list";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import PropTypes from "prop-types";
-import {ActionCreator} from "../../../store/action";
 
 const FavoritesPage = (props) => {
-  const {offers, onOfferFocus, onOfferLeave} = props;
+  const {offers} = props;
 
   return (
     <div className="page">
@@ -39,7 +37,7 @@ const FavoritesPage = (props) => {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <FavoriteList offers={offers} onOfferFocus={onOfferFocus} onOfferLeave={onOfferLeave}/>
+              <FavoriteList offers={offers} />
             </ul>
           </section>
         </div>
@@ -55,21 +53,10 @@ const FavoritesPage = (props) => {
 
 FavoritesPage.propTypes = {
   offers: mainPageOffersProp,
-  onOfferFocus: PropTypes.func.isRequired,
-  onOfferLeave: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers.filter((item) => item.isFavorite),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onOfferFocus(offer) {
-    dispatch(ActionCreator.focusActiveId(offer));
-  },
-  onOfferLeave() {
-    dispatch(ActionCreator.resetActiveId());
-  }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);
+export default connect(mapStateToProps)(FavoritesPage);

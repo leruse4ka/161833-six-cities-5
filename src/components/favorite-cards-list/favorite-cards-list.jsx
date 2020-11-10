@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import Card from "../card/card";
 import {DefaultType} from "../../const";
+import {connect} from "react-redux";
+import {ActionCreator} from "../../store/action";
 
 const FavoriteCardsList = (props) => {
   const {offers, cityName, onOfferFocus, onOfferLeave} = props;
@@ -26,4 +28,13 @@ FavoriteCardsList.propTypes = {
   onOfferLeave: PropTypes.func.isRequired,
 };
 
-export default FavoriteCardsList;
+const mapDispatchToProps = (dispatch) => ({
+  onOfferFocus(offer) {
+    dispatch(ActionCreator.focusActiveId(offer));
+  },
+  onOfferLeave() {
+    dispatch(ActionCreator.resetActiveId());
+  }
+});
+
+export default connect(null, mapDispatchToProps)(FavoriteCardsList);

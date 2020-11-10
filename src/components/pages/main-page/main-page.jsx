@@ -11,7 +11,7 @@ import Sorts from "../../sorts/sorts";
 import {sorting} from "../../../sorting";
 
 const MainPage = (props) => {
-  const {offers, activeId, cityName, onCityClick, onSortClick, onOfferFocus, onOfferLeave} = props;
+  const {offers, activeId, cityName, onCityClick} = props;
 
   const countRent = offers ? offers.length : 0;
 
@@ -54,8 +54,8 @@ const MainPage = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{countRent} places to stay in {cityName} </b>
-              <Sorts offers={offers} onSortClick={onSortClick}/>
-              <CardsList offers={offers} onOfferFocus={onOfferFocus} onOfferLeave={onOfferLeave}/>
+              <Sorts offers={offers} />
+              <CardsList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -73,10 +73,7 @@ MainPage.propTypes = {
   offers: mainPageOffersProp,
   cityName: PropTypes.string.isRequired,
   onCityClick: PropTypes.func.isRequired,
-  onSortClick: PropTypes.func.isRequired,
-  onOfferFocus: PropTypes.func.isRequired,
   activeId: PropTypes.number,
-  onOfferLeave: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -90,15 +87,6 @@ const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt) {
     dispatch(ActionCreator.changeCity(evt));
   },
-  onSortClick(evt) {
-    dispatch(ActionCreator.changeSort(evt));
-  },
-  onOfferFocus(offer) {
-    dispatch(ActionCreator.focusActiveId(offer));
-  },
-  onOfferLeave() {
-    dispatch(ActionCreator.resetActiveId());
-  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
