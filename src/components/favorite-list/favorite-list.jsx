@@ -1,7 +1,6 @@
 import React from "react";
 import mainPageOffersProp from "../pages/main-page/main-page-offers.prop";
 import FavoriteCardsList from "../favorite-cards-list/favorite-cards-list";
-import {connect} from "react-redux";
 
 const FavoriteList = (props) => {
   const {offers} = props;
@@ -30,8 +29,4 @@ FavoriteList.propTypes = {
   favoriteOffers: mainPageOffersProp,
 };
 
-const mapStateToProps = (state) => ({
-  offers: Array.from(state.offers.filter((item) => item.isFavorite)),
-});
-
-export default connect(mapStateToProps)(FavoriteList);
+export default FavoriteList;

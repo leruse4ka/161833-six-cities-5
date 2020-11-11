@@ -2,6 +2,7 @@ import React from "react";
 import mainPageOffersProp from "../main-page/main-page-offers.prop";
 import FavoriteList from "../../favorite-list/favorite-list";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
 const FavoritesPage = (props) => {
   const {offers} = props;
@@ -54,4 +55,8 @@ FavoritesPage.propTypes = {
   offers: mainPageOffersProp,
 };
 
-export default FavoritesPage;
+const mapStateToProps = (state) => ({
+  offers: state.offers.filter((item) => item.isFavorite),
+});
+
+export default connect(mapStateToProps)(FavoritesPage);

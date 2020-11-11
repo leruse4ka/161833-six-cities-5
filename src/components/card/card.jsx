@@ -5,7 +5,7 @@ import cardOfferProp from "./card-offer.prop";
 import {StarStyle, Types} from "../../const.js";
 
 const Card = (props) => {
-  const {offer, activeOfferHandler, defaultType} = props;
+  const {offer, onOfferFocus, defaultType, onOfferLeave} = props;
 
   const {nameClassCard, nameClassImg, nameClassInfo, width, height} = defaultType;
 
@@ -30,8 +30,8 @@ const Card = (props) => {
   return (
     <article key={id} className={nameCard} onMouseEnter={(evt) => {
       evt.preventDefault();
-      activeOfferHandler(offer);
-    }}>
+      onOfferFocus(offer);
+    }} onMouseLeave={onOfferLeave} >
       {mark}
       <div className={nameImg}>
         <Link to="/offer/:id">
@@ -66,10 +66,6 @@ const Card = (props) => {
   );
 };
 
-Card.defaultProps = {
-  activeOfferHandler: () => { }
-};
-
 Card.propTypes = {
   defaultType: PropTypes.shape({
     nameClassCard: PropTypes.string.isRequired,
@@ -78,8 +74,9 @@ Card.propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
   }),
-  activeOfferHandler: PropTypes.func.isRequired,
+  onOfferFocus: PropTypes.func.isRequired,
   offer: cardOfferProp,
+  onOfferLeave: PropTypes.func.isRequired,
 };
 
 export default Card;

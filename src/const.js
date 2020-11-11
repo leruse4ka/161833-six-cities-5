@@ -1,4 +1,5 @@
 const CITIES = [`Amsterdam`, `Paris`, `Cologne`, `Brussels`, `Hamburg`, `Dusseldorf`];
+const SORT_TYPES = [`Popular`, `Price: low to high`, `Price: high to low`, `Top rated first`];
 
 const StarStyle = {
   0: 0 + `%`,
@@ -9,6 +10,12 @@ const StarStyle = {
   5: 100 + `%`,
 };
 
+const SortType = {
+  POPULAR: `Popular`,
+  LOW_TO_HIGH: `Price: low to high`,
+  HIGH_TO_LOW: `Price: high to low`,
+  TOP_RATED_FIRST: `Top rated first`,
+};
 
 const Types = {
   apartment: `Apartment`,
@@ -42,4 +49,4 @@ const DefaultType = {
   },
 };
 
-export {StarStyle, Types, CITIES, Stars, DefaultType};
+export {StarStyle, Types, CITIES, Stars, DefaultType, SORT_TYPES, SortType};

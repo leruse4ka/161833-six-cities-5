@@ -7,11 +7,12 @@ import ReviewList from "../../review-list/review-list";
 import Map from "../../map/map";
 import CardsList from "../../cards-list/cards-list";
 import {connect} from "react-redux";
+import PropTypes from "prop-types";
 
 const MAX_COUNT = 3;
 
 const PropertyPage = (props) => {
-  const {offers} = props;
+  const {offers, activeId} = props;
   const offer = offers[0];
   const {
     photoGallery,
@@ -64,11 +65,11 @@ const PropertyPage = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -157,7 +158,7 @@ const PropertyPage = (props) => {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={cards} cityCord={[52.38333, 4.9]}/>
+            <Map offers={cards} cityCord={[52.38333, 4.9]} activeId={activeId} />
           </section>
         </section>
         <div className="container">
@@ -179,14 +180,12 @@ const PropertyPage = (props) => {
 
 PropertyPage.propTypes = {
   offers: mainPageOffersProp,
+  activeId: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  activeId: state.activeId,
 });
-
-// const mapDispatchToProps = (dispatch) => ({
-
-// });
 
 export default connect(mapStateToProps)(PropertyPage);

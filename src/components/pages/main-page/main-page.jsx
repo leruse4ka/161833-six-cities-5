@@ -7,9 +7,11 @@ import {connect} from "react-redux";
 import CitiesList from "../../cities-list/cities-list";
 import {ActionCreator} from "../../../store/action";
 import {Link} from "react-router-dom";
+import Sorts from "../../sorts/sorts";
+import {sorting} from "../../../sorting";
 
 const MainPage = (props) => {
-  const {offers, cityName, onCityClick} = props;
+  const {offers, activeId, cityName, onCityClick} = props;
 
   const countRent = offers ? offers.length : 0;
 
@@ -52,26 +54,12 @@ const MainPage = (props) => {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{countRent} places to stay in {cityName} </b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by </span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use href="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
+              <Sorts offers={offers} />
               <CardsList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} cityCord={[52.38333, 4.9]} />
+                <Map offers={offers} cityCord={[52.38333, 4.9]} activeId={activeId} />
               </section>
             </div>
           </div>
@@ -85,17 +73,20 @@ MainPage.propTypes = {
   offers: mainPageOffersProp,
   cityName: PropTypes.string.isRequired,
   onCityClick: PropTypes.func.isRequired,
+  activeId: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   cityName: state.cityName,
-  offers: Array.from(state.offers.filter((item) => item.city.name === state.cityName)),
+  currentSort: state.currentSort,
+  offers: sorting(state.currentSort, Array.from(state.offers.slice().filter((item) => item.city.name === state.cityName))),
+  activeId: state.activeId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(evt) {
     dispatch(ActionCreator.changeCity(evt));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

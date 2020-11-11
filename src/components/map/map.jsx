@@ -9,10 +9,11 @@ class Map extends PureComponent {
 
     this.map = ``;
     this.layer = ``;
+    this.markers = [];
   }
 
   componentDidMount() {
-    const {offers, cityCord} = this.props;
+    const {offers, cityCord, activeId} = this.props;
 
     const city = cityCord;
 
@@ -33,34 +34,39 @@ class Map extends PureComponent {
       })
       .addTo(this.map);
 
-    this.renderPins(offers);
+    this.renderPins(offers, activeId);
   }
 
-  renderPins(offers) {
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
+  renderPins(offers, activeId) {
+    this.markers = [];
 
-    let markers = [];
+    let icon;
 
     offers.forEach((offer) => {
       const offerCords = offer.coordinates;
+      const id = offer.id;
+      let activeIcon = id === activeId ? `img/pin-active.svg` : `img/pin.svg`;
+      icon = leaflet.icon({
+        iconUrl: activeIcon,
+        iconSize: [30, 30]
+      });
+
       let marker =
         leaflet
         .marker(offerCords, {icon});
-      markers.push(marker);
+      marker.id = id;
+      this.markers.push(marker);
     });
 
     if (this.layer) {
       this.map.removeLayer(this.layer);
     }
 
-    this.layer = leaflet.featureGroup(markers).addTo(this.map);
+    this.layer = leaflet.featureGroup(this.markers).addTo(this.map);
   }
 
-  componentDidUpdate(prevOffers) {
-    this.renderPins(this.props.offers, prevOffers.offers);
+  componentDidUpdate() {
+    this.renderPins(this.props.offers, this.props.activeId);
   }
 
   render() {
@@ -72,6 +78,7 @@ class Map extends PureComponent {
 Map.propTypes = {
   cityCord: PropTypes.array.isRequired,
   offers: mainPageOffersProp,
+  activeId: PropTypes.number,
 };
 
 export default Map;
