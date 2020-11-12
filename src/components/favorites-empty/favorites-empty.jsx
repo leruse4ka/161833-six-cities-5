@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "../../footer/footer";
-import Header from "../../header/header";
+import Footer from "../footer/footer";
+import Header from "../header/header";
 
-const FavoritesEmptyPage = () => {
+const FavoritesEmpty = () => {
   return (
     <div className="page page--favorites-empty">
       <Header />
@@ -22,4 +22,4 @@ const FavoritesEmptyPage = () => {
   );
 };
 
-export default FavoritesEmptyPage;
+export default FavoritesEmpty;

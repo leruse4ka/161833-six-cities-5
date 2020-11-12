@@ -10,6 +10,7 @@ import Sorts from "../../sorts/sorts";
 import {sorting} from "../../../sorting";
 import withSorts from "../../../hocs/with-sorts/with-sorts";
 import Header from "../../header/header";
+import MainEmpty from "../../main-empty/main-empty";
 
 const SortsWrapped = withSorts(Sorts);
 
@@ -18,10 +19,12 @@ const MainPage = (props) => {
 
   const countRent = offers ? offers.length : 0;
 
+  const mainClass = offers.length ? `page__main page__main--index` : `page__main page__main--index page__main--index-empty`;
+
   return (
     <div className="page page--gray page--main">
       <Header />
-      <main className="page__main page__main--index">
+      <main className={mainClass}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -31,7 +34,7 @@ const MainPage = (props) => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
+          {offers.length ? <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{countRent} places to stay in {cityName} </b>
@@ -43,7 +46,7 @@ const MainPage = (props) => {
                 <Map offers={offers} cityCord={[52.38333, 4.9]} activeId={activeId} />
               </section>
             </div>
-          </div>
+          </div> : <MainEmpty cityName={cityName}/>}
         </div>
       </main>
     </div>
