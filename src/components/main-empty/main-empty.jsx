@@ -1,6 +1,6 @@
 import React from "react";
 
-const MainEmptyPage = () => {
+const MainEmpty = () => {
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">
@@ -14,4 +14,4 @@ const MainEmptyPage = () => {
   );
 };
 
-export default MainEmptyPage;
+export default MainEmpty;
