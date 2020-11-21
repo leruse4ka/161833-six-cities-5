@@ -1,4 +1,5 @@
 import React from "react";
+import cardOfferProp from "../../card/card-offer.prop";
 import mainPageOffersProp from "../main-page/main-page-offers.prop";
 import {StarStyle, Types, DefaultType} from "../../../const.js";
 import ReviewForm from "../../review-form/review-form.jsx";
@@ -8,29 +9,30 @@ import CardsList from "../../cards-list/cards-list";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Header from "../../header/header";
-
-const MAX_COUNT = 3;
+import propertyPageCommentsProp from "./property-page-comments.prop";
+import {AuthorizationStatus} from "../../../const";
 
 const PropertyPage = (props) => {
-  const {offers, activeId} = props;
-  const offer = offers[0];
+  const {offer, activeId, offersNearby, comments, authorizationStatus} = props;
+
   const {
     photoGallery,
     premium,
     title,
     rating,
     isFavorite,
-    features,
+    bedrooms,
+    adults,
+    type,
     price,
     inside,
-    meetHost,
-    reviews,
+    host,
+    description,
+    city
   } = offer;
 
   let favoriteButton = isFavorite ? `property__bookmark-button button property__bookmark-button--active` : `property__bookmark-button button`;
-  const ratingStyle = StarStyle[rating];
-
-  const cards = offers.slice(0, MAX_COUNT);
+  const ratingStyle = StarStyle[Math.round(rating)];
 
   return (
     <div className="page">
@@ -41,8 +43,8 @@ const PropertyPage = (props) => {
             <div className="property__gallery">
               {photoGallery.map((photo, i) => {
                 return (
-                  <div key={photo.src + `${i}`} className="property__image-wrapper">
-                    <img className="property__image" src={photo.src} alt={photo.alt}/>
+                  <div key={photo + `${i}`} className="property__image-wrapper">
+                    <img className="property__image" src={photo} alt="Photo studio"/>
                   </div>
                 );
               })}
@@ -75,13 +77,13 @@ const PropertyPage = (props) => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {Types[features.entire]}
+                  {Types[type]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {features.bedrooms} Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {features.adults} adults
+                  Max {adults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -104,31 +106,29 @@ const PropertyPage = (props) => {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={meetHost.avatar} width="74" height="74" alt="Host avatar"/>
+                    <img className="property__avatar user__avatar" src={host.avatar} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="property__user-name">
-                    {meetHost.name}
+                    {host.name}
                   </span>
                 </div>
                 <div className="property__description">
-                  {meetHost.description.map((item) => {
-                    return (
-                      <p key={item} className="property__text">
-                        {item}
-                      </p>
-                    );
-                  })}
+                  <p className="property__text">
+                    {description}
+                  </p>
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewList reviews={reviews} />
-                <ReviewForm />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount"></span></h2>
+                <ReviewList comments={comments}/>
+                {authorizationStatus === AuthorizationStatus.NO_AUTH
+                  ? ``
+                  : <ReviewForm />}
               </section>
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={cards} cityCord={[52.38333, 4.9]} activeId={activeId} />
+            <Map offers={offersNearby} cityCord={city.location} activeId={activeId} />
           </section>
         </section>
         <div className="container">
@@ -136,7 +136,7 @@ const PropertyPage = (props) => {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
             <CardsList
-              offers={cards}
+              offers={offersNearby}
               classNames={`near-places__list`}
               typeCard={DefaultType.property}
             />
@@ -149,13 +149,19 @@ const PropertyPage = (props) => {
 };
 
 PropertyPage.propTypes = {
-  offers: mainPageOffersProp,
+  offer: cardOfferProp,
   activeId: PropTypes.number,
+  offersNearby: mainPageOffersProp,
+  comments: propertyPageCommentsProp,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers,
-  activeId: state.activeId,
+const mapStateToProps = ({DATA, STATUS, USER}) => ({
+  offer: DATA.activeOffer,
+  activeId: STATUS.activeId,
+  authorizationStatus: USER.authorizationStatus,
+  offersNearby: DATA.offersNearby,
+  comments: DATA.comments,
 });
 
 export default connect(mapStateToProps)(PropertyPage);

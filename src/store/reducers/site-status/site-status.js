@@ -1,15 +1,13 @@
-import {extend} from "../utils";
-import {ActionType} from "./action";
-import offers from "../mocks/offers";
+import {extend} from "../../../utils";
+import {ActionType} from "../../action";
 
 const initialState = {
   cityName: `Amsterdam`,
   currentSort: `Popular`,
-  offers,
   activeId: null,
 };
 
-const reducer = (state = initialState, action) => {
+const siteStatus = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_CITY:
       return extend(state, {
@@ -32,4 +30,4 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-export {reducer};
+export {siteStatus};

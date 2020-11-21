@@ -7,15 +7,20 @@ import {connect} from "react-redux";
 import CitiesList from "../../cities-list/cities-list";
 import {ActionCreator} from "../../../store/action";
 import Sorts from "../../sorts/sorts";
-import {sorting} from "../../../sorting";
 import withSorts from "../../../hocs/with-sorts/with-sorts";
 import Header from "../../header/header";
 import MainEmpty from "../../main-empty/main-empty";
+import {getFilterOffers} from "../../../store/selectors";
 
 const SortsWrapped = withSorts(Sorts);
 
 const MainPage = (props) => {
   const {offers, activeId, cityName, onCityClick} = props;
+
+  const city = offers.slice(0, 1).reduce((acc, item) => {
+    acc = item.city;
+    return acc;
+  }, {});
 
   const countRent = offers ? offers.length : 0;
 
@@ -43,7 +48,7 @@ const MainPage = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} cityCord={[52.38333, 4.9]} activeId={activeId} />
+                <Map offers={offers} cityCord={city.location} activeId={activeId} />
               </section>
             </div>
           </div> : <MainEmpty cityName={cityName}/>}
@@ -61,10 +66,10 @@ MainPage.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  cityName: state.cityName,
-  currentSort: state.currentSort,
-  offers: sorting(state.currentSort, Array.from(state.offers.slice().filter((item) => item.city.name === state.cityName))),
-  activeId: state.activeId,
+  cityName: state.STATUS.cityName,
+  currentSort: state.STATUS.currentSort,
+  offers: getFilterOffers(state),
+  activeId: state.STATUS.activeId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

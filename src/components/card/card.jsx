@@ -1,22 +1,17 @@
 import React from "react";
-import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import cardOfferProp from "./card-offer.prop";
 import {StarStyle, Types} from "../../const.js";
 
 const Card = (props) => {
-  const {offer, onOfferFocus, defaultType, onOfferLeave} = props;
+  const {offer, onOfferFocus, defaultType, onOfferLeave, onOfferClick, onFavoriteClick} = props;
 
   const {nameClassCard, nameClassImg, nameClassInfo, width, height} = defaultType;
 
-  const {isFavorite, photoGallery, price, rating, title, features, id, premium} = offer;
+  const {isFavorite, price, rating, title, type, id, premium, previewImage} = offer;
 
-  let favoriteButton = `place-card__bookmark-button button`;
-  const ratingStyle = StarStyle[rating];
-
-  if (isFavorite) {
-    favoriteButton += ` place-card__bookmark-button--active`;
-  }
+  let favoriteButton = isFavorite ? `place-card__bookmark-button button place-card__bookmark-button--active` : `place-card__bookmark-button button`;
+  const ratingStyle = StarStyle[Math.round(rating)];
 
   const mark = premium
     ? <div className="place-card__mark">
@@ -28,15 +23,19 @@ const Card = (props) => {
   const nameImg = `${nameClassImg}__image-wrapper place-card__image-wrapper`;
 
   return (
-    <article key={id} className={nameCard} onMouseEnter={(evt) => {
-      evt.preventDefault();
-      onOfferFocus(offer);
-    }} onMouseLeave={onOfferLeave} >
+    <article
+      key={id}
+      className={nameCard}
+      onMouseEnter={(evt) => {
+        evt.preventDefault();
+        onOfferFocus(offer);
+      }}
+      onMouseLeave={onOfferLeave} >
       {mark}
       <div className={nameImg}>
-        <Link to="/offer/:id">
-          <img className="place-card__image" src={photoGallery[0].src} width={width} height={height} alt="Place image" />
-        </Link>
+        <a href="">
+          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image" />
+        </a>
       </div>
       <div className={nameClassInfo ? nameClassInfo + `place-card__info` : `place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -44,7 +43,11 @@ const Card = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={favoriteButton} type="button">
+          <button className={favoriteButton} type="button" onClick={() => {
+
+            const status = isFavorite ? 0 : 1;
+            onFavoriteClick(id, status, Object.assign(offer, {isFavorite: !isFavorite}));
+          }}>
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use href="#icon-bookmark"></use>
             </svg>
@@ -58,9 +61,15 @@ const Card = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to="/offer/:id">{title}</Link>
+          <a href=""
+            onClick={(evt) => {
+              evt.preventDefault();
+              onOfferClick(id);
+            }}>
+            {title}
+          </a>
         </h2>
-        <p className="place-card__type">{Types[features.entire]}</p>
+        <p className="place-card__type">{Types[type]}</p>
       </div>
     </article>
   );
@@ -77,6 +86,18 @@ Card.propTypes = {
   onOfferFocus: PropTypes.func.isRequired,
   offer: cardOfferProp,
   onOfferLeave: PropTypes.func.isRequired,
+  onOfferClick: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
 };
+
+// const mapDispatchToProps = (dispatch) => ({
+//   onOfferClick(id) {
+//     dispatch(fetchOffer(id));
+//     dispatch(fetchOffersNearbyList(id));
+//   },
+//   onFavoriteClick(id, status, offer) {
+//     dispatch(setFavorite(id, status, offer));
+//   }
+// });
 
 export default Card;

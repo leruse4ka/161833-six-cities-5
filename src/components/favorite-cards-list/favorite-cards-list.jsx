@@ -5,9 +5,10 @@ import Card from "../card/card";
 import {DefaultType} from "../../const";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../store/action";
+import {fetchOffer, fetchOffersNearbyList, setFavorite, fetchComments} from "../../store/api-actions";
 
 const FavoriteCardsList = (props) => {
-  const {offers, cityName, onOfferFocus, onOfferLeave} = props;
+  const {offers, cityName, onOfferFocus, onOfferLeave, onFavoriteClick, onOfferClick} = props;
   return (
     offers
       .filter((offer) => offer.city.name === cityName)
@@ -17,6 +18,8 @@ const FavoriteCardsList = (props) => {
         defaultType={DefaultType.favorites}
         onOfferFocus={onOfferFocus}
         onOfferLeave={onOfferLeave}
+        onFavoriteClick={onFavoriteClick}
+        onOfferClick={onOfferClick}
       />)
   );
 };
@@ -26,6 +29,8 @@ FavoriteCardsList.propTypes = {
   cityName: PropTypes.string.isRequired,
   onOfferFocus: PropTypes.func.isRequired,
   onOfferLeave: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired,
+  onOfferClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -34,7 +39,15 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onOfferLeave() {
     dispatch(ActionCreator.resetActiveId());
-  }
+  },
+  onOfferClick(id) {
+    dispatch(fetchOffer(id));
+    dispatch(fetchOffersNearbyList(id));
+    dispatch(fetchComments(id));
+  },
+  onFavoriteClick(id, status, offer) {
+    dispatch(setFavorite(id, status, offer));
+  },
 });
 
 export default connect(null, mapDispatchToProps)(FavoriteCardsList);

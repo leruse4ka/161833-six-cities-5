@@ -1,12 +1,12 @@
 import React from "react";
-import PropTypes from "prop-types";
 import ReviewListItem from "../review-list-item/review-list-item";
+import propertyPageCommentsProp from "../pages/property-page/property-page-comments.prop";
 
 const ReviewList = (props) => {
-  const {reviews} = props;
+  const {comments} = props;
   return (
     <ul className="reviews__list">
-      {reviews.map((item, i) => {
+      {comments.map((item, i) => {
 
         return (
           <ReviewListItem key={item.name + `${i}`} review={item} />
@@ -17,13 +17,7 @@ const ReviewList = (props) => {
 };
 
 ReviewList.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    avatar: PropTypes.string.isRequired,
-    date: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-  }).isRequired).isRequired,
+  comments: propertyPageCommentsProp,
 };
 
 export default ReviewList;
