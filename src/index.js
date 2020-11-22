@@ -7,7 +7,7 @@ import rootReducer from "./store/reducers/root-reducer";
 import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
 import {ActionCreator} from "./store/action";
-import {fetchOffersList, checkAuth, fetchOffersFavorite} from "./store/api-actions";
+import {checkAuth} from "./store/api-actions";
 import {AuthorizationStatus} from "./const";
 import {redirect} from "./store/middlewares/redirect";
 import {composeWithDevTools} from "redux-devtools-extension";
@@ -25,9 +25,7 @@ const store = createStore(
 );
 
 Promise.all([
-  store.dispatch(fetchOffersList()),
   store.dispatch(checkAuth()),
-  store.dispatch(fetchOffersFavorite()),
 ])
 .then(() => {
   ReactDOM.render(
