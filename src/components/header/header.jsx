@@ -1,7 +1,11 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import {AuthorizationStatus} from "../../const";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {fetchOffersFavorite} from "../../store/api-actions";
 
-const Header = () => {
+const Header = ({authorizationStatus, onEmailClick}) => {
   return (
     <header className="header">
       <div className="container">
@@ -17,7 +21,9 @@ const Header = () => {
                 <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                  { authorizationStatus === AuthorizationStatus.NO_AUTH
+                    ? <span className="header__login">Sign in</span>
+                    : <span className="header__user-name user__name" onClick={() => onEmailClick()}>Oliver.conner@gmail.com</span>}
                 </Link>
               </li>
             </ul>
@@ -28,4 +34,19 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  onEmailClick: PropTypes.func.isRequired
+};
+
+const mapStateToProps = ({USER}) => ({
+  authorizationStatus: USER.authorizationStatus
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onEmailClick() {
+    dispatch(fetchOffersFavorite());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

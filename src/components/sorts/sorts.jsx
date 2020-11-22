@@ -39,8 +39,8 @@ Sorts.propTypes = {
   onMenuClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentSort: state.currentSort,
+const mapStateToProps = ({STATUS}) => ({
+  currentSort: STATUS.currentSort,
 });
 
 const mapDispatchToProps = (dispatch) => ({

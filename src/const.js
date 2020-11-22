@@ -49,4 +49,9 @@ const DefaultType = {
   },
 };
 
-export {StarStyle, Types, CITIES, Stars, DefaultType, SORT_TYPES, SortType};
+const AuthorizationStatus = {
+  AUTH: `AUTH`,
+  NO_AUTH: `NO_AUTH`,
+};
+
+export {StarStyle, Types, CITIES, Stars, DefaultType, SORT_TYPES, SortType, AuthorizationStatus};

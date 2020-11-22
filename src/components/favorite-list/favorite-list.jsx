@@ -17,7 +17,7 @@ const FavoriteList = (props) => {
             </div>
           </div>
           <div className="favorites__places">
-            <FavoriteCardsList offers={offers} cityName={item} />
+            <FavoriteCardsList offers={offers} cityName={item}/>
           </div>
         </li>
       );

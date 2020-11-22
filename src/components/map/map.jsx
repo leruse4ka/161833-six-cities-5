@@ -15,18 +15,18 @@ class Map extends PureComponent {
   componentDidMount() {
     const {offers, cityCord, activeId} = this.props;
 
-    const city = cityCord;
+    const {latitude, longitude, zoom} = cityCord;
 
-    const zoom = 12;
+    const location = Array.of(latitude, longitude);
 
     this.map = leaflet.map(`map`, {
-      center: city,
+      center: location,
       zoom,
       zoomControl: false,
       marker: true
     });
 
-    this.map.setView(city, zoom);
+    this.map.setView(location, zoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -43,12 +43,14 @@ class Map extends PureComponent {
     let icon;
 
     offers.forEach((offer) => {
-      const offerCords = offer.coordinates;
+      const {latitude, longitude, zoom} = offer.location;
+      const offerCords = Array.of(latitude, longitude);
       const id = offer.id;
       let activeIcon = id === activeId ? `img/pin-active.svg` : `img/pin.svg`;
       icon = leaflet.icon({
         iconUrl: activeIcon,
-        iconSize: [30, 30]
+        iconSize: [30, 30],
+        zoom
       });
 
       let marker =
@@ -76,7 +78,11 @@ class Map extends PureComponent {
 }
 
 Map.propTypes = {
-  cityCord: PropTypes.array.isRequired,
+  cityCord: PropTypes.shape({
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired,
+  }).isRequired,
   offers: mainPageOffersProp,
   activeId: PropTypes.number,
 };

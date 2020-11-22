@@ -20,7 +20,7 @@ const FavoritesPage = (props) => {
           {offers.length ? <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <FavoriteList offers={offers} />
+              <FavoriteList offers={offers}/>
             </ul>
           </section> : <FavoritesEmpty />}
         </div>
@@ -34,8 +34,8 @@ FavoritesPage.propTypes = {
   offers: mainPageOffersProp,
 };
 
-const mapStateToProps = (state) => ({
-  offers: state.offers.filter((item) => item.isFavorite),
+const mapStateToProps = ({DATA}) => ({
+  offers: DATA.offersFavorite,
 });
 
 export default connect(mapStateToProps)(FavoritesPage);
