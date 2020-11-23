@@ -15,11 +15,9 @@ class AuthScreenPage extends PureComponent {
   }
 
   handleSubmit(evt) {
-    const {onSubmit, onSignInButtonClick} = this.props;
+    const {onSubmit} = this.props;
 
     evt.preventDefault();
-
-    onSignInButtonClick();
 
     onSubmit({
       login: this.loginRef.current.value,
@@ -63,7 +61,6 @@ class AuthScreenPage extends PureComponent {
 
 AuthScreenPage.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onSignInButtonClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({

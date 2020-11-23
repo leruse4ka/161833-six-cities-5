@@ -14,6 +14,13 @@ export const sortRating = (a, b) => {
   return (b.rating - a.rating);
 };
 
+export const getCity = (offers) => {
+  return offers.slice(0, 1).reduce((acc, item) => {
+    acc = item.city;
+    return acc;
+  }, {});
+};
+
 export const adaptToClient = (offer) => {
   const adaptedHost = Object.assign({},
       offer.host, {

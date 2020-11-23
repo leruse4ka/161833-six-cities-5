@@ -3,9 +3,9 @@ import {Link} from "react-router-dom";
 import {AuthorizationStatus} from "../../const";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {fetchOffersFavorite} from "../../store/api-actions";
 
-const Header = ({authorizationStatus, onEmailClick}) => {
+const Header = ({authorizationStatus}) => {
+
   return (
     <header className="header">
       <div className="container">
@@ -18,12 +18,12 @@ const Header = ({authorizationStatus, onEmailClick}) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                <Link className="header__nav-link header__nav-link--profile" to={authorizationStatus === AuthorizationStatus.NO_AUTH ? `/login` : `/favorites`}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
                   { authorizationStatus === AuthorizationStatus.NO_AUTH
                     ? <span className="header__login">Sign in</span>
-                    : <span className="header__user-name user__name" onClick={() => onEmailClick()}>Oliver.conner@gmail.com</span>}
+                    : <span className="header__user-name user__name">Oliver.conner@gmail.com</span>}
                 </Link>
               </li>
             </ul>
@@ -36,17 +36,11 @@ const Header = ({authorizationStatus, onEmailClick}) => {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  onEmailClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({USER}) => ({
   authorizationStatus: USER.authorizationStatus
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onEmailClick() {
-    dispatch(fetchOffersFavorite());
-  }
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

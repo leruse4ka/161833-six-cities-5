@@ -14,11 +14,7 @@ const App = () => {
         <Route exact path="/" component={MainPage} />
         <Route exact
           path="/login"
-          render={({history}) => (
-            <AuthScreenPage
-              onSignInButtonClick={() => history.push(`/favorites`)}
-            />
-          )}
+          component={AuthScreenPage}
         />
         <PrivateRoute exact path={`/favorites`} render={() => <FavoritesPage />} />
         <Route path="/offer/:id" exact component={PropertyPage} />
