@@ -43,3 +43,8 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 export const setFavorite = (id, status, offer) => (_dispatch, _getState, api) => (
   api.post(`favorite/${id}/${status}`, adaptToServer(offer))
 );
+
+export const comments = (id, {comment, rating}) => (dispatch, _getState, api) => (
+  api.post(`comments/${id}`, {comment, rating})
+    .then(() => dispatch(ActionCreator.submitComment()))
+);

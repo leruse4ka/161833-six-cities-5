@@ -1,5 +1,9 @@
 import React, {PureComponent} from "react";
+import {connect} from "react-redux";
 import {Stars} from "../../const";
+import {comments} from "../../store/api-actions";
+import PropTypes from "prop-types";
+import browserHistory from "../../browser-history";
 
 class ReviewForm extends PureComponent {
   constructor(props) {
@@ -11,13 +15,30 @@ class ReviewForm extends PureComponent {
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInputChange(evt) {
     const {name, value} = evt.target;
+
     this.setState({
       [name]: value
     });
+
+  }
+
+  handleSubmit(evt) {
+    const {onSubmit} = this.props;
+    evt.preventDefault();
+    const id = browserHistory.location.pathname.split(`/offer/`)[1];
+
+    onSubmit(
+        id,
+        {
+          rating: this.state.rating,
+          comment: this.state.review,
+        }
+    );
   }
 
   render() {
@@ -35,7 +56,7 @@ class ReviewForm extends PureComponent {
     });
 
     return (
-      <form className="reviews__form form" action="#" method="post" onChange = {this.handleInputChange}>
+      <form className="reviews__form form" action="#" method="post" onChange = {this.handleInputChange} onSubmit={this.handleSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           {ratingButton}
@@ -50,6 +71,19 @@ class ReviewForm extends PureComponent {
       </form>
     );
   }
+
+
 }
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(id, commentData) {
+    dispatch(comments(id, commentData));
+  }
+});
+
+export default connect(null, mapDispatchToProps)(ReviewForm);
+

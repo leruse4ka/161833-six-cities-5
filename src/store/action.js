@@ -10,6 +10,7 @@ export const ActionType = {
   LOAD_OFFERS_NEARBY: `LOAD_OFFERS_NEARBY`,
   LOAD_OFFERS_FAVORITE: `LOAD_OFFERS_FAVORITE`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
+  SUBMIT_COMMENT: `SUBMIT_COMMENT`
 };
 
 export const ActionCreator = {
@@ -77,6 +78,11 @@ export const ActionCreator = {
     return {
       type: ActionType.LOAD_COMMENTS,
       payload: comments,
+    };
+  },
+  submitComment: () => {
+    return {
+      type: ActionType.SUBMIT_COMMENT,
     };
   }
 };
