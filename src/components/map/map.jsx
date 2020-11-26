@@ -67,7 +67,13 @@ class Map extends PureComponent {
     this.layer = leaflet.featureGroup(this.markers).addTo(this.map);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.cityCord !== this.props.cityCord) {
+      const {latitude, longitude, zoom} = this.props.cityCord;
+      const location = Array.of(latitude, longitude);
+
+      this.map.setView(location, zoom);
+    }
     this.renderPins(this.props.offers, this.props.activeId);
   }
 

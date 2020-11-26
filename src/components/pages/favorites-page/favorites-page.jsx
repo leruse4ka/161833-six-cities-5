@@ -56,4 +56,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {FavoritesPage};
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

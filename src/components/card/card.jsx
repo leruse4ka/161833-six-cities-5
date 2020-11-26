@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import cardOfferProp from "./card-offer.prop";
 import {StarStyle, Types} from "../../const.js";
+import {Link} from "react-router-dom";
 
 const Card = (props) => {
-  const {offer, onOfferFocus, defaultType, onOfferLeave, onOfferClick, onFavoriteClick} = props;
+  const {offer, onOfferFocus, defaultType, onOfferLeave, onFavoriteClick} = props;
 
   const {nameClassCard, nameClassImg, nameClassInfo, width, height} = defaultType;
 
@@ -26,8 +27,7 @@ const Card = (props) => {
     <article
       key={id}
       className={nameCard}
-      onMouseEnter={(evt) => {
-        evt.preventDefault();
+      onMouseEnter={() => {
         onOfferFocus(offer);
       }}
       onMouseLeave={onOfferLeave} >
@@ -61,13 +61,9 @@ const Card = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href=""
-            onClick={(evt) => {
-              evt.preventDefault();
-              onOfferClick(id);
-            }}>
+          <Link to={`/offer/${id}`}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">{Types[type]}</p>
       </div>
@@ -86,18 +82,7 @@ Card.propTypes = {
   onOfferFocus: PropTypes.func.isRequired,
   offer: cardOfferProp,
   onOfferLeave: PropTypes.func.isRequired,
-  onOfferClick: PropTypes.func.isRequired,
   onFavoriteClick: PropTypes.func.isRequired,
 };
-
-// const mapDispatchToProps = (dispatch) => ({
-//   onOfferClick(id) {
-//     dispatch(fetchOffer(id));
-//     dispatch(fetchOffersNearbyList(id));
-//   },
-//   onFavoriteClick(id, status, offer) {
-//     dispatch(setFavorite(id, status, offer));
-//   }
-// });
 
 export default Card;

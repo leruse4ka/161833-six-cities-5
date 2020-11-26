@@ -69,4 +69,5 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
+export {AuthScreenPage};
 export default connect(null, mapDispatchToProps)(AuthScreenPage);

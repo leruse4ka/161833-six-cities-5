@@ -14,6 +14,10 @@ export const sortRating = (a, b) => {
   return (b.rating - a.rating);
 };
 
+export const sortCommentData = (a, b) => {
+  return (Date.parse(new Date(b.date)) - Date.parse(new Date(a.date)));
+};
+
 export const getCity = (offers) => {
   return offers.slice(0, 1).reduce((acc, item) => {
     acc = item.city;
@@ -109,4 +113,23 @@ export const adaptToServer = (offer) => {
   delete adaptedOffer.previewImage;
 
   return adaptedOffer;
+};
+
+export const adaptToClientLogin = (data) => {
+  const adaptedData = Object.assign({},
+      data, {
+        avatar: data.avatar_url,
+        isPro: data.is_pro,
+      }
+  );
+
+  delete adaptedData.avatar_url;
+  delete adaptedData.is_pro;
+  return adaptedData;
+};
+
+export const getMapOffers = (offersNearby, offer) => {
+  const mapOffers = offersNearby.slice();
+  mapOffers.push(offer);
+  return mapOffers;
 };

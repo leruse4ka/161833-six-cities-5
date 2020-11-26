@@ -18,6 +18,7 @@ const CitiesList = (props) => {
 };
 
 CitiesList.propTypes = {
+  cityName: PropTypes.string.isRequired,
   onCityClick: PropTypes.func.isRequired,
 };
 

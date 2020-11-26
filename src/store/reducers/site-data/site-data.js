@@ -8,6 +8,8 @@ const initialState = {
   offersNearby: [],
   offersFavorite: [],
   comments: [],
+  isLoading: false,
+  isError: false,
 };
 
 const siteData = (state = initialState, action) => {
@@ -31,6 +33,14 @@ const siteData = (state = initialState, action) => {
     case ActionType.LOAD_COMMENTS:
       return extend(state, {
         comments: action.payload,
+      });
+    case ActionType.IS_LOADED:
+      return extend(state, {
+        isLoading: true,
+      });
+    case ActionType.ERR_COMMENT:
+      return extend(state, {
+        isError: true,
       });
   }
   return state;

@@ -1,6 +1,6 @@
 import {ActionCreator} from "./action";
 import {AuthorizationStatus} from "../const";
-import {adaptToClient, adaptToServer, adaptToClientComments} from "../utils";
+import {adaptToClient, adaptToServer, adaptToClientComments, adaptToClientLogin} from "../utils";
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(`/hotels`)
@@ -9,14 +9,18 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(`/login`)
+    .then(({data}) => dispatch(ActionCreator.loadLoginData(adaptToClientLogin(data))))
+    .then(() => dispatch(ActionCreator.isLoadingData()))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {})
+    .catch(() => {
+      dispatch(ActionCreator.isLoadingData());
+    })
 );
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`/hotels/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadOffer(adaptToClient(data))))
-    .then(() => dispatch(ActionCreator.redirectToRoute(`/offer/${id}`)))
+    .then(() => dispatch(ActionCreator.isLoadingOffer()))
 );
 
 export const fetchOffersFavorite = () => (dispatch, _getState, api) => (
@@ -36,15 +40,29 @@ export const fetchComments = (id) => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(`/login`, {email, password})
+    .then(({data}) => dispatch(ActionCreator.loadLoginData(adaptToClientLogin(data))))
+    .then(() => dispatch(ActionCreator.isLoadingData()))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(`/favorites`)))
 );
 
-export const setFavorite = (id, status, offer) => (_dispatch, _getState, api) => (
+export const setFavorite = (id, status, offer) => (dispatch, _getState, api) => (
   api.post(`favorite/${id}/${status}`, adaptToServer(offer))
+    .then(({data}) => {
+      dispatch(ActionCreator.loadOffer(adaptToClient(data)));
+      dispatch(fetchOffersFavorite());
+      dispatch(fetchOffersList());
+    })
+    .catch(() => dispatch(ActionCreator.redirectToRoute(`/login`)))
 );
 
 export const comments = (id, {comment, rating}) => (dispatch, _getState, api) => (
   api.post(`comments/${id}`, {comment, rating})
-    .then(() => dispatch(ActionCreator.submitComment()))
+    .then(({data}) => {
+      dispatch(ActionCreator.submitComment());
+      dispatch(ActionCreator.loadOffersComments(data.map(adaptToClientComments)));
+    })
+    .catch(() => {
+      dispatch(ActionCreator.errComment());
+    })
 );

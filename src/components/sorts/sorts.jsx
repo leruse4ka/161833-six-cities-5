@@ -45,9 +45,11 @@ const mapStateToProps = ({STATUS}) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSortClick(evt) {
-    dispatch(ActionCreator.changeSort(evt));
+    evt.preventDefault();
+    dispatch(ActionCreator.changeSort(evt.target.textContent));
   },
 });
 
+export {Sorts};
 export default connect(mapStateToProps, mapDispatchToProps)(Sorts);
 

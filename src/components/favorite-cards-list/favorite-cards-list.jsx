@@ -50,4 +50,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export {FavoriteCardsList};
 export default connect(null, mapDispatchToProps)(FavoriteCardsList);
