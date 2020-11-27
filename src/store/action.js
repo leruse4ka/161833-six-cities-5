@@ -10,22 +10,24 @@ export const ActionType = {
   LOAD_OFFERS_NEARBY: `LOAD_OFFERS_NEARBY`,
   LOAD_OFFERS_FAVORITE: `LOAD_OFFERS_FAVORITE`,
   LOAD_COMMENTS: `LOAD_COMMENTS`,
-  SUBMIT_COMMENT: `SUBMIT_COMMENT`
+  SUBMIT_COMMENT: `SUBMIT_COMMENT`,
+  IS_LOADED: `IS_LOADED`,
+  LOAD_LOGIN_DATA: `LOAD_LOGIN_DATA`,
+  IS_LOADED_DATA: `IS_LOADED_DATA`,
+  ERR_COMMENT: `ERR_COMMENT`
 };
 
 export const ActionCreator = {
-  changeCity: (evt) => {
-    evt.preventDefault();
+  changeCity: (name) => {
     return {
       type: ActionType.CHANGE_CITY,
-      payload: evt.target.textContent,
+      payload: name,
     };
   },
-  changeSort: (evt) => {
-    evt.preventDefault();
+  changeSort: (sort) => {
     return {
       type: ActionType.CHANGE_SORT,
-      payload: evt.target.textContent,
+      payload: sort,
     };
   },
   focusActiveId: (offer) => {
@@ -83,6 +85,27 @@ export const ActionCreator = {
   submitComment: () => {
     return {
       type: ActionType.SUBMIT_COMMENT,
+    };
+  },
+  isLoadingOffer: () => {
+    return {
+      type: ActionType.IS_LOADED,
+    };
+  },
+  isLoadingData: () => {
+    return {
+      type: ActionType.IS_LOADED_DATA,
+    };
+  },
+  loadLoginData: (data) => {
+    return {
+      type: ActionType.LOAD_LOGIN_DATA,
+      payload: data,
+    };
+  },
+  errComment: () => {
+    return {
+      type: ActionType.ERR_COMMENT,
     };
   }
 };

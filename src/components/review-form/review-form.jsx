@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Stars} from "../../const";
 import {comments} from "../../store/api-actions";
 import PropTypes from "prop-types";
-import browserHistory from "../../browser-history";
+import {getErr} from "../../store/common";
 
 class ReviewForm extends PureComponent {
   constructor(props) {
@@ -30,7 +30,7 @@ class ReviewForm extends PureComponent {
   handleSubmit(evt) {
     const {onSubmit} = this.props;
     evt.preventDefault();
-    const id = browserHistory.location.pathname.split(`/offer/`)[1];
+    const id = this.props.id;
 
     onSubmit(
         id,
@@ -39,9 +39,17 @@ class ReviewForm extends PureComponent {
           comment: this.state.review,
         }
     );
+
+    if (this.props.isError) {
+      getErr();
+    } else {
+      document.querySelector(`form`).reset();
+    }
+
   }
 
   render() {
+    const disabled = this.state.review.length < 50 || this.state.review.length >= 300 || !this.state.rating;
     const ratingButton = Object.entries(Stars).reverse().map((star) => {
       return (
         <React.Fragment key={star}>
@@ -66,7 +74,7 @@ class ReviewForm extends PureComponent {
           <p className="reviews__help">
             To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
           </p>
-          <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+          <button className="reviews__submit form__submit button" type="submit" disabled={disabled}>Submit</button>
         </div>
       </form>
     );
@@ -77,7 +85,13 @@ class ReviewForm extends PureComponent {
 
 ReviewForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  id: PropTypes.number,
+  isError: PropTypes.bool.isRequired,
 };
+
+const mapStateToProps = ({DATA}) => ({
+  isError: DATA.isError,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(id, commentData) {
@@ -85,5 +99,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export {ReviewForm};
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
 

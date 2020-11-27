@@ -1,5 +1,5 @@
 import {SortType} from "./const";
-import {sortLowToHigh, sortHightToLow, sortRating} from "./utils";
+import {sortLowToHigh, sortHightToLow, sortRating, sortCommentData} from "./utils";
 
 export const sorting = (currentSortType, sortingOffers) => {
   switch (currentSortType) {
@@ -13,3 +13,6 @@ export const sorting = (currentSortType, sortingOffers) => {
   return sortingOffers;
 };
 
+export const sortingComments = (comments) => {
+  return comments.slice().sort(sortCommentData);
+};
