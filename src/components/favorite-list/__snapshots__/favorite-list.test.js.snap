@@ -12,9 +12,12 @@ exports[`Render FavoriteList 1`] = `
     >
       <a
         className="locations__item-link"
-        href="#"
+        href="/"
+        onClick={[Function]}
       >
-        <span>
+        <span
+          onClick={[Function]}
+        >
           Amsterdam
         </span>
       </a>
@@ -33,7 +36,8 @@ exports[`Render FavoriteList 1`] = `
         className="favorites__image-wrapper place-card__image-wrapper"
       >
         <a
-          href=""
+          href="/offer/1"
+          onClick={[Function]}
         >
           <img
             alt="Place image"
@@ -134,7 +138,8 @@ exports[`Render FavoriteList 1`] = `
         className="favorites__image-wrapper place-card__image-wrapper"
       >
         <a
-          href=""
+          href="/offer/2"
+          onClick={[Function]}
         >
           <img
             alt="Place image"
@@ -235,7 +240,8 @@ exports[`Render FavoriteList 1`] = `
         className="favorites__image-wrapper place-card__image-wrapper"
       >
         <a
-          href=""
+          href="/offer/3"
+          onClick={[Function]}
         >
           <img
             alt="Place image"

@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {Stars} from "../../const";
 import {comments} from "../../store/api-actions";
 import PropTypes from "prop-types";
-import {getErr} from "../../store/common";
 
 class ReviewForm extends PureComponent {
   constructor(props) {
@@ -24,7 +23,6 @@ class ReviewForm extends PureComponent {
     this.setState({
       [name]: value
     });
-
   }
 
   handleSubmit(evt) {
@@ -40,15 +38,22 @@ class ReviewForm extends PureComponent {
         }
     );
 
-    if (this.props.isError) {
-      getErr();
-    } else {
-      document.querySelector(`form`).reset();
+    if (!this.props.isError) {
+      this.resetForm(evt.target);
     }
 
   }
 
+  resetForm(elem) {
+    elem.reset();
+    this.setState({
+      rating: 0,
+      review: ``,
+    });
+  }
+
   render() {
+    const {isError} = this.props;
     const disabled = this.state.review.length < 50 || this.state.review.length >= 300 || !this.state.rating;
     const ratingButton = Object.entries(Stars).reverse().map((star) => {
       return (
@@ -63,6 +68,12 @@ class ReviewForm extends PureComponent {
       );
     });
 
+    const errorMessage =
+        <div className="errComments" style={{border: `2px solid black`, width: `400px`, height: `200px`, color: `red`, fontSize: `25px`, position: `absolute`, top: `80%`, left: `30%`, backgroundColor: `white`}}>
+         ERROR! Sorry cant find that!
+         Reload the page
+        </div>;
+
     return (
       <form className="reviews__form form" action="#" method="post" onChange = {this.handleInputChange} onSubmit={this.handleSubmit}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -76,6 +87,7 @@ class ReviewForm extends PureComponent {
           </p>
           <button className="reviews__submit form__submit button" type="submit" disabled={disabled}>Submit</button>
         </div>
+        {isError ? errorMessage : `` }
       </form>
     );
   }

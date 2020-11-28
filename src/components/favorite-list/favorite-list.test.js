@@ -37,6 +37,7 @@ it(`Render FavoriteList`, () => {
         <BrowserRouter>
           <FavoriteList
             offers={getMockOffers(3)}
+            onCityClick={() => {}}
           >
             <React.Fragment />
           </FavoriteList>

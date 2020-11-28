@@ -43,6 +43,7 @@ it(`Render FavoritesPage`, () => {
           <FavoritesPage
             getOffers={() => {}}
             offers={(getMockOffers(4))}
+            onCityClick={() => {}}
           >
             <React.Fragment />
           </FavoritesPage>

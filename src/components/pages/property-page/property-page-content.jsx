@@ -12,6 +12,8 @@ import propertyPageCommentsProp from "./property-page-comments.prop";
 import {AuthorizationStatus} from "../../../const";
 import {getMapOffers} from "../../../utils";
 
+const MAX_COMMENTS = 10;
+
 const PropertyPageContent = (props) => {
   const {offer, offersNearby, comments, authorizationStatus, onFavoriteClick} = props;
   const {
@@ -31,9 +33,10 @@ const PropertyPageContent = (props) => {
     id
   } = offer;
 
-  let favoriteButton = isFavorite ? `property__bookmark-button button property__bookmark-button--active` : `property__bookmark-button button`;
+  const favoriteButton = isFavorite ? `property__bookmark-button button property__bookmark-button--active` : `property__bookmark-button button`;
   const ratingStyle = StarStyle[Math.round(rating)];
   const mapOffers = getMapOffers(offersNearby, offer);
+  const viewComments = comments.slice(0, MAX_COMMENTS);
 
   return (
     <div className="page">
@@ -125,7 +128,7 @@ const PropertyPageContent = (props) => {
               </div>
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                <ReviewList comments={comments} />
+                <ReviewList comments={viewComments} />
                 {authorizationStatus === AuthorizationStatus.NO_AUTH
                   ? ``
                   : <ReviewForm id={offer.id}/>}

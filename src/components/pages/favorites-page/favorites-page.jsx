@@ -7,6 +7,7 @@ import Footer from "../../footer/footer";
 import FavoritesEmpty from "../../favorites-empty/favorites-empty";
 import {fetchOffersFavorite} from "../../../store/api-actions";
 import PropTypes from "prop-types";
+import {ActionCreator} from "../../../store/action";
 
 class FavoritesPage extends PureComponent {
   constructor(props) {
@@ -19,7 +20,7 @@ class FavoritesPage extends PureComponent {
   }
 
   render() {
-    const {offers} = this.props;
+    const {offers, onCityClick} = this.props;
     const favoriteClass = offers.length ? `page` : `page page--favorites-empty`;
     const mainClass = offers.length ? `page__main page__main--favorites` : `page__main page__main--favorites page__main--favorites-empty`;
     return (
@@ -30,7 +31,7 @@ class FavoritesPage extends PureComponent {
             {offers.length ? <section className="favorites">
               <h1 className="favorites__title">Saved listing</h1>
               <ul className="favorites__list">
-                <FavoriteList offers={offers}/>
+                <FavoriteList offers={offers} onCityClick={onCityClick}/>
               </ul>
             </section> : <FavoritesEmpty />}
           </div>
@@ -44,6 +45,7 @@ class FavoritesPage extends PureComponent {
 FavoritesPage.propTypes = {
   offers: mainPageOffersProp,
   getOffers: PropTypes.func.isRequired,
+  onCityClick: PropTypes.func.isRequired
 };
 
 const mapStateToProps = ({DATA}) => ({
@@ -53,6 +55,9 @@ const mapStateToProps = ({DATA}) => ({
 const mapDispatchToProps = (dispatch) => ({
   getOffers() {
     dispatch(fetchOffersFavorite());
+  },
+  onCityClick(evt) {
+    dispatch(ActionCreator.changeCity(evt.target.textContent));
   }
 });
 

@@ -1,8 +1,6 @@
 import {createSelector} from "reselect";
 import {sorting, sortingComments} from "../sorting";
 
-const MAX_COMMENTS = 10;
-
 const getOffers = (state) => state.DATA.offers;
 const getCurrentSort = (state) => state.STATUS.currentSort;
 const getCityName = (state) => state.STATUS.cityName;
@@ -16,7 +14,7 @@ export const getFilterOffers = createSelector(
 
 const getComments = (state) => state.DATA.comments;
 
-export const getSortOffers = createSelector(
+export const getSortComments = createSelector(
     getComments,
-    (comments) => sortingComments(comments).slice(0, MAX_COMMENTS)
+    (comments) => sortingComments(comments)
 );

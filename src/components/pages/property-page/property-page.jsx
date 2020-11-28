@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import {fetchOffer, fetchOffersNearbyList, fetchComments} from "../../../store/api-actions";
 import {setFavorite} from "../../../store/api-actions";
 import PropertyPageContent from "./property-page-content";
-import {getSortOffers} from "../../../store/selectors";
+import {getSortComments} from "../../../store/selectors";
 
 class PropertyPage extends PureComponent {
   constructor(props) {
@@ -50,7 +50,7 @@ const mapStateToProps = (state, ownProps) => ({
   activeId: state.STATUS.activeId,
   authorizationStatus: state.USER.authorizationStatus,
   offersNearby: state.DATA.offersNearby,
-  comments: getSortOffers(state),
+  comments: getSortComments(state),
   id: Number(ownProps.match.params.id),
   isLoading: state.DATA.isLoading,
 });

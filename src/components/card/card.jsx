@@ -33,9 +33,9 @@ const Card = (props) => {
       onMouseLeave={onOfferLeave} >
       {mark}
       <div className={nameImg}>
-        <a href="">
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className={nameClassInfo ? nameClassInfo + `place-card__info` : `place-card__info`}>
         <div className="place-card__price-wrapper">

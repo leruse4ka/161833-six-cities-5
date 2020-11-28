@@ -24,12 +24,9 @@ const MockComponentWrapped = withSorts(MockComponent);
 
 it(`withSorts is rendered correctly`, () => {
   const tree = renderer.create(
-      <MockComponentWrapped
-        onSortClick={() => {}}
-        onMenuClick={() => {}}
-        currentSort={`Popular`}
-        isOpen={true}
-      />
+      <MockComponentWrapped>
+        <React.Fragment />
+      </MockComponentWrapped>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();
